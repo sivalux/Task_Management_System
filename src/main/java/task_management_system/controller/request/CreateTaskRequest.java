@@ -24,8 +24,10 @@ public class CreateTaskRequest {
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
 
+    @NotNull(message = "Priority cannot be null.")
     private Priority priority;
 
+    @NotNull(message = "DueDate cannot be null.")
     private LocalDate dueDate;
 
 }
