@@ -1,6 +1,7 @@
 package task_management_system.controller.request;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UpdateTaskRequest {
 
-    @NotEmpty(message = "UserId cannot be empty.")
+    @NotNull(message = "UserId cannot be null.")
     private Integer userId;
 
     @NotEmpty(message = "Title cannot be empty.")
@@ -23,12 +24,12 @@ public class UpdateTaskRequest {
     @NotEmpty(message = "Description cannot be empty.")
     private String description;
 
-    @NotEmpty(message = "Status cannot be empty.")
+    @NotNull(message = "Status cannot be null.")
     private TaskStatus status;
 
-    @NotEmpty(message = "Priority cannot be empty.")
+    @NotNull(message = "Priority cannot be null.")
     private Priority priority;
 
-    @NotEmpty(message = "DueDate cannot be empty.")
+    @NotNull(message = "DueDate cannot be null.")
     private LocalDate dueDate;
 }

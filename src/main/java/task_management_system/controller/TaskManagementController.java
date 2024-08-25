@@ -16,10 +16,9 @@ import task_management_system.controller.request.CreateTaskRequest;
 import task_management_system.controller.request.UpdateTaskRequest;
 import task_management_system.controller.response.TaskResponse;
 import task_management_system.service.TaskManagementService;
-import task_management_system.util.ErrorResponseModel;
 import task_management_system.util.PageResponse;
 
-import java.util.Date;
+
 
 @RestController
 @RequestMapping(path = "/api/v1/task-management")
@@ -35,14 +34,9 @@ public class TaskManagementController {
             @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Integer.class))})
     @PostMapping
     public ResponseEntity<?> createTask(@Valid @RequestBody CreateTaskRequest request) {
-        try {
-            Integer response = taskManagementService.createTask(request);
-            LOGGER.info("Task created successfully");
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseModel(new Date(), e.getMessage()));
-        }
+        Integer response = taskManagementService.createTask(request);
+        LOGGER.info("Task created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @Operation(summary = "Delete task")
@@ -50,16 +44,9 @@ public class TaskManagementController {
             @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Integer.class))})
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
-        try {
-            Integer response = taskManagementService.deleteTask(id);
-            LOGGER.info("Task deleted successfully");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseModel(new Date(), ex.getMessage()));
-        }catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseModel(new Date(), e.getMessage()));
-        }
+        Integer response = taskManagementService.deleteTask(id);
+        LOGGER.info("Task deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Operation(summary = "Update task")
@@ -67,16 +54,9 @@ public class TaskManagementController {
             @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Integer.class))})
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateTask(@PathVariable Integer id,@Valid @RequestBody UpdateTaskRequest request) {
-        try {
-            Integer response = taskManagementService.updateTask(id, request);
-            LOGGER.info("Task updated successfully");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        }catch (IllegalArgumentException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseModel(new Date(), ex.getMessage()));
-        }catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseModel(new Date(), e.getMessage()));
-        }
+        Integer response = taskManagementService.updateTask(id, request);
+        LOGGER.info("Task updated successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Operation(summary = "Get task by id")
@@ -84,16 +64,9 @@ public class TaskManagementController {
             @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = TaskResponse.class))})
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
-        try {
-            TaskResponse response = taskManagementService.getTaskById(id);
-            LOGGER.info("Task retrieved successfully");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseModel(new Date(), ex.getMessage()));
-        }catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseModel(new Date(), e.getMessage()));
-        }
+        TaskResponse response = taskManagementService.getTaskById(id);
+        LOGGER.info("Task retrieved successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @Operation(summary = "Get all tasks")
@@ -102,14 +75,9 @@ public class TaskManagementController {
     @GetMapping
     public ResponseEntity<?> getAllTasks( @RequestParam(value = "pageNo", required = true) Integer pageNo,
                                                 @RequestParam(value = "pageSize", required = true) Integer pageSize) {
-        try {
-            PageResponse response = taskManagementService.getAllTasks(pageNo,pageSize);
-            LOGGER.info("Tasks retrieved successfully");
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseModel(new Date(), e.getMessage()));
-        }
+        PageResponse response = taskManagementService.getAllTasks(pageNo,pageSize);
+        LOGGER.info("Tasks retrieved successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 
